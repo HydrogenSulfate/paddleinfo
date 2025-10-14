@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+title: paddleinfo
+message: If you use this software, please cite it as below.
+type: software
+authors:
+  - given-names: Tyler
+    family-names: Yep
+    email: tyep@cs.stanford.edu
+identifiers:
+  - type: url
+    value: 'https://github.com/HydrogenSulfate/paddleinfo'
+    description: View model summaries in PaddlePaddle!
+repository-code: 'https://github.com/HydrogenSulfate/paddleinfo'
+abstract: >-
+  Paddleinfo provides information complementary to
+  what is provided by print(your_model) in PaddlePaddle.
+keywords:
+  - paddle
+  - paddlepaddle
+  - paddleinfo
+  - paddlesummary
+license: MIT
+date-released: '2020-03-16'

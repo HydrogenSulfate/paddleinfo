@@ -58,8 +58,8 @@ class SingleInputNet(paddle.nn.Layer):
 
     def __init__(self) ->None:
         super().__init__()
-        self.conv1 = paddle.nn.Conv2d(1, 10, kernel_size=5)
-        self.conv2 = paddle.nn.Conv2d(10, 20, kernel_size=5)
+        self.conv1 = paddle.nn.Conv2D(1, 10, kernel_size=5)
+        self.conv2 = paddle.nn.Conv2D(10, 20, kernel_size=5)
         self.conv2_drop = paddle.nn.Dropout2D(p=0.3)
         self.fc1 = paddle.nn.Linear(in_features=320, out_features=50)
         self.fc2 = paddle.nn.Linear(in_features=50, out_features=10)
@@ -100,8 +100,8 @@ class ScalarNet(paddle.nn.Layer):
 
     def __init__(self) ->None:
         super().__init__()
-        self.conv1 = paddle.nn.Conv2d(64, 64, 3, 1, 1)
-        self.conv2 = paddle.nn.Conv2d(64, 32, 3, 1, 1)
+        self.conv1 = paddle.nn.Conv2D(64, 64, 3, 1, 1)
+        self.conv2 = paddle.nn.Conv2D(64, 32, 3, 1, 1)
 
     def forward(self, x: paddle.Tensor, scalar: float) ->paddle.Tensor:
         out = x
@@ -138,7 +138,7 @@ class RecursiveNet(paddle.nn.Layer):
 
     def __init__(self) ->None:
         super().__init__()
-        self.conv1 = paddle.nn.Conv2d(64, 64, 3, 1, 1)
+        self.conv1 = paddle.nn.Conv2D(64, 64, 3, 1, 1)
 
     def forward(self, x: paddle.Tensor, args1: Any=None, args2: Any=None
         ) ->paddle.Tensor:
@@ -183,10 +183,10 @@ class SiameseNets(paddle.nn.Layer):
 
     def __init__(self) ->None:
         super().__init__()
-        self.conv1 = paddle.nn.Conv2d(1, 64, 10)
-        self.conv2 = paddle.nn.Conv2d(64, 128, 7)
-        self.conv3 = paddle.nn.Conv2d(128, 128, 4)
-        self.conv4 = paddle.nn.Conv2d(128, 256, 4)
+        self.conv1 = paddle.nn.Conv2D(1, 64, 10)
+        self.conv2 = paddle.nn.Conv2D(64, 128, 7)
+        self.conv3 = paddle.nn.Conv2D(128, 128, 4)
+        self.conv4 = paddle.nn.Conv2D(128, 256, 4)
         self.pooling = paddle.nn.MaxPool2D(kernel_size=2, stride=2)
         self.fc1 = paddle.nn.Linear(in_features=256, out_features=4096)
         self.fc2 = paddle.nn.Linear(in_features=4096, out_features=1)
@@ -217,8 +217,8 @@ class FunctionalNet(paddle.nn.Layer):
 
     def __init__(self) ->None:
         super().__init__()
-        self.conv1 = paddle.nn.Conv2d(1, 32, 5, 1)
-        self.conv2 = paddle.nn.Conv2d(32, 64, 5, 1)
+        self.conv1 = paddle.nn.Conv2D(1, 32, 5, 1)
+        self.conv2 = paddle.nn.Conv2D(32, 64, 5, 1)
         self.dropout1 = paddle.nn.Dropout2D(p=0.4)
         self.dropout2 = paddle.nn.Dropout2D(p=0.5)
         self.fc1 = paddle.nn.Linear(in_features=2048, out_features=1024)
@@ -245,8 +245,8 @@ class ReturnDictLayer(paddle.nn.Layer):
 
     def __init__(self) ->None:
         super().__init__()
-        self.conv1 = paddle.nn.Conv2d(1, 10, kernel_size=5)
-        self.conv2 = paddle.nn.Conv2d(10, 20, kernel_size=5)
+        self.conv1 = paddle.nn.Conv2D(1, 10, kernel_size=5)
+        self.conv2 = paddle.nn.Conv2D(10, 20, kernel_size=5)
         self.fc1 = paddle.nn.Linear(in_features=320, out_features=50)
         self.fc2 = paddle.nn.Linear(in_features=50, out_features=10)
 
@@ -301,7 +301,7 @@ class ModuleDictModel(paddle.nn.Layer):
     def __init__(self) ->None:
         super().__init__()
         self.choices = paddle.nn.LayerDict(sublayers={'conv': paddle.nn.
-            Conv2d(10, 10, 3), 'pool': paddle.nn.MaxPool2D(kernel_size=3)})
+            Conv2D(10, 10, 3), 'pool': paddle.nn.MaxPool2D(kernel_size=3)})
         self.activations = paddle.nn.LayerDict(sublayers={'lrelu': paddle.
             nn.LeakyReLU(), 'prelu': paddle.nn.PReLU()})
 
@@ -413,7 +413,7 @@ class EdgeCaseModel(paddle.nn.Layer):
         self.throw_error = throw_error
         self.return_str = return_str
         self.return_class = return_class
-        self.conv1 = paddle.nn.Conv2d(1, 10, kernel_size=5)
+        self.conv1 = paddle.nn.Conv2D(1, 10, kernel_size=5)
         self.model = LayerWithRidiculouslyLongNameAndDoesntDoAnything()
 
     def forward(self, x: paddle.Tensor) ->Any:
@@ -514,12 +514,12 @@ class AutoEncoder(paddle.nn.Layer):
 
     def __init__(self) ->None:
         super().__init__()
-        self.encoder = paddle.nn.Sequential(paddle.nn.Conv2d(3, 16, 3,
+        self.encoder = paddle.nn.Sequential(paddle.nn.Conv2D(3, 16, 3,
             padding=1), paddle.nn.ReLU())
         self.pool = paddle.nn.MaxPool2D(kernel_size=2, stride=2,
             return_mask=True)
         self.unpool = paddle.nn.MaxUnPool2D(2, 2)
-        self.decode = paddle.nn.Sequential(paddle.nn.Conv2d(16, 3, 3,
+        self.decode = paddle.nn.Sequential(paddle.nn.Conv2D(16, 3, 3,
             padding=1), paddle.nn.ReLU())
 
     def forward(self, x: paddle.Tensor) ->paddle.Tensor:
@@ -536,8 +536,8 @@ class PartialJITModel(paddle.nn.Layer):
 
     def __init__(self) ->None:
         super().__init__()
-        self.conv1 = paddle.nn.Conv2d(1, 10, kernel_size=5)
-        self.conv2 = paddle.nn.Conv2d(10, 20, kernel_size=5)
+        self.conv1 = paddle.nn.Conv2D(1, 10, kernel_size=5)
+        self.conv2 = paddle.nn.Conv2D(10, 20, kernel_size=5)
         self.conv2_drop = paddle.nn.Dropout2D(p=0.3)
         self.fc1 = paddle.jit.to_static(function=paddle.nn.Linear(
             in_features=320, out_features=50))
@@ -629,11 +629,11 @@ class ReuseReLU(paddle.nn.Layer):
         super().__init__()
         activation = paddle.nn.ReLU()
         model = [paddle.nn.Pad2D(padding=3, mode='reflect'), paddle.nn.
-            Conv2d(4, 1, kernel_size=1, padding=0), paddle.nn.BatchNorm2D(
+            Conv2D(4, 1, kernel_size=1, padding=0), paddle.nn.BatchNorm2D(
             num_features=1), activation]
         for i in range(3):
             mult = 2 ** i
-            model += [paddle.nn.Conv2d(mult, mult * 2, kernel_size=1,
+            model += [paddle.nn.Conv2D(mult, mult * 2, kernel_size=1,
                 stride=2, padding=1), paddle.nn.BatchNorm2D(num_features=
                 mult * 2), activation]
         self.model = paddle.nn.Sequential(*model)
@@ -738,21 +738,21 @@ class RecursiveWithMissingLayers(paddle.nn.Layer):
 
     def __init__(self) ->None:
         super().__init__()
-        self.out_conv0 = paddle.nn.Conv2d(3, 8, 5, padding='same')
+        self.out_conv0 = paddle.nn.Conv2D(3, 8, 5, padding='same')
         self.out_bn0 = paddle.nn.BatchNorm2D(num_features=8)
         self.block0 = paddle.nn.LayerDict()
         for i in range(1, 4):
             self.block0.add_sublayer(name=f'in_conv{i}', sublayer=paddle.nn
-                .Conv2d(8, 8, 3, padding='same', dilation=2 ** i))
+                .Conv2D(8, 8, 3, padding='same', dilation=2 ** i))
             self.block0.add_sublayer(name=f'in_bn{i}', sublayer=paddle.nn.
                 BatchNorm2D(num_features=8))
         self.block1 = paddle.nn.LayerDict()
         for i in range(4, 7):
             self.block1.add_sublayer(name=f'in_conv{i}', sublayer=paddle.nn
-                .Conv2d(8, 8, 3, padding='same', dilation=2 ** (7 - i)))
+                .Conv2D(8, 8, 3, padding='same', dilation=2 ** (7 - i)))
             self.block1.add_sublayer(name=f'in_bn{i}', sublayer=paddle.nn.
                 BatchNorm2D(num_features=8))
-        self.out_conv7 = paddle.nn.Conv2d(8, 1, 1, padding='same')
+        self.out_conv7 = paddle.nn.Conv2D(8, 1, 1, padding='same')
         self.out_bn7 = paddle.nn.BatchNorm2D(num_features=1)
 
     def forward(self, x: paddle.Tensor) ->paddle.Tensor:

@@ -9,7 +9,7 @@ class ReLUConvBN(paddle.nn.Layer):
         super().__init__()
         self.op = paddle.nn.Sequential(
             paddle.nn.ReLU(),
-            paddle.nn.Conv2d(
+            paddle.nn.Conv2D(
                 C_in, C_out, kernel_size, stride=stride, padding=padding, bias=False
             ),
             paddle.nn.BatchNorm2D(
@@ -26,7 +26,7 @@ class SepConv(paddle.nn.Layer):
         super().__init__()
         self.op = paddle.nn.Sequential(
             paddle.nn.ReLU(),
-            paddle.nn.Conv2d(
+            paddle.nn.Conv2D(
                 C_in,
                 C_in,
                 kernel_size=kernel_size,
@@ -35,12 +35,12 @@ class SepConv(paddle.nn.Layer):
                 groups=C_in,
                 bias=False,
             ),
-            paddle.nn.Conv2d(C_in, C_in, kernel_size=1, padding=0, bias=False),
+            paddle.nn.Conv2D(C_in, C_in, kernel_size=1, padding=0, bias=False),
             paddle.nn.BatchNorm2D(
                 num_features=C_in, weight_attr=affine, bias_attr=affine
             ),
             paddle.nn.ReLU(),
-            paddle.nn.Conv2d(
+            paddle.nn.Conv2D(
                 C_in,
                 C_in,
                 kernel_size=kernel_size,
@@ -49,7 +49,7 @@ class SepConv(paddle.nn.Layer):
                 groups=C_in,
                 bias=False,
             ),
-            paddle.nn.Conv2d(C_in, C_out, kernel_size=1, padding=0, bias=False),
+            paddle.nn.Conv2D(C_in, C_out, kernel_size=1, padding=0, bias=False),
             paddle.nn.BatchNorm2D(
                 num_features=C_out, weight_attr=affine, bias_attr=affine
             ),
@@ -64,10 +64,10 @@ class FactorizedReduce(paddle.nn.Layer):
         super().__init__()
         assert C_out % 2 == 0
         self.relu = paddle.nn.ReLU()
-        self.conv_1 = paddle.nn.Conv2d(
+        self.conv_1 = paddle.nn.Conv2D(
             C_in, C_out // 2, 1, stride=2, padding=0, bias=False
         )
-        self.conv_2 = paddle.nn.Conv2d(
+        self.conv_2 = paddle.nn.Conv2D(
             C_in, C_out // 2, 1, stride=2, padding=0, bias=False
         )
         self.bn = paddle.nn.BatchNorm2D(
@@ -140,7 +140,7 @@ class GenotypeNetwork(paddle.nn.Layer):
         stem_multiplier = 3
         C_curr = stem_multiplier * C
         self.stem = paddle.nn.Sequential(
-            paddle.nn.Conv2d(3, C_curr, 3, padding=1, bias=False),
+            paddle.nn.Conv2D(3, C_curr, 3, padding=1, bias=False),
             paddle.nn.BatchNorm2D(num_features=C_curr),
         )
         C_prev_prev, C_prev, C_curr = C_curr, C_curr, C

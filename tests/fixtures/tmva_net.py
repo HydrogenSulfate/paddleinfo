@@ -7,12 +7,12 @@ class DoubleConvBlock(paddle.nn.Layer):
     def __init__(self, in_ch, out_ch, k_size, pad, dil):
         super().__init__()
         self.block = paddle.nn.Sequential(
-            paddle.nn.Conv2d(
+            paddle.nn.Conv2D(
                 in_ch, out_ch, kernel_size=k_size, padding=pad, dilation=dil
             ),
             paddle.nn.BatchNorm2D(num_features=out_ch),
             paddle.nn.LeakyReLU(),
-            paddle.nn.Conv2d(
+            paddle.nn.Conv2D(
                 out_ch, out_ch, kernel_size=k_size, padding=pad, dilation=dil
             ),
             paddle.nn.BatchNorm2D(num_features=out_ch),
@@ -53,7 +53,7 @@ class ConvBlock(paddle.nn.Layer):
     def __init__(self, in_ch, out_ch, k_size, pad, dil):
         super().__init__()
         self.block = paddle.nn.Sequential(
-            paddle.nn.Conv2d(
+            paddle.nn.Conv2D(
                 in_ch, out_ch, kernel_size=k_size, padding=pad, dilation=dil
             ),
             paddle.nn.BatchNorm2D(num_features=out_ch),
@@ -75,7 +75,7 @@ class ASPPBlock(paddle.nn.Layer):
         self.global_avg_pool = paddle.nn.AvgPool2D(
             kernel_size=(64, 64), exclusive=False
         )
-        self.conv1_1x1 = paddle.nn.Conv2d(
+        self.conv1_1x1 = paddle.nn.Conv2D(
             in_ch, out_ch, kernel_size=1, padding=0, dilation=1
         )
         self.single_conv_block1_1x1 = ConvBlock(in_ch, out_ch, k_size=1, pad=0, dil=1)
@@ -235,10 +235,10 @@ class TMVANet_Decoder(paddle.nn.Layer):
         self.ra_double_conv_block2 = DoubleConvBlock(
             in_ch=128, out_ch=128, k_size=3, pad=1, dil=1
         )
-        self.rd_final = paddle.nn.Conv2d(
+        self.rd_final = paddle.nn.Conv2D(
             in_channels=128, out_channels=n_classes, kernel_size=1
         )
-        self.ra_final = paddle.nn.Conv2d(
+        self.ra_final = paddle.nn.Conv2D(
             in_channels=128, out_channels=n_classes, kernel_size=1
         )
 
